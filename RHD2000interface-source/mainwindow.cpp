@@ -99,14 +99,15 @@ MainWindow::MainWindow()
     evalBoardMode = 0;
 
     // Set dialog pointers to null.
-    spikeScopeDialog = 0;
-    keyboardShortcutDialog = 0;
-    helpDialogChipFilters = 0;
-    helpDialogComparators = 0;
-    helpDialogDacs = 0;
-    helpDialogHighpassFilter = 0;
-    helpDialogNotchFilter = 0;
-    helpDialogFastSettle = 0;
+    spikeScopeDialog = nullptr;
+    stimParamDialog = nullptr;
+    keyboardShortcutDialog = nullptr;
+    helpDialogChipFilters = nullptr;
+    helpDialogComparators = nullptr;
+    helpDialogDacs = nullptr;
+    helpDialogHighpassFilter = nullptr;
+    helpDialogNotchFilter = nullptr;
+    helpDialogFastSettle = nullptr;
 
     recordTriggerChannel = 0;
     recordTriggerPolarity = 0;

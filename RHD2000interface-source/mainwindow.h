@@ -41,6 +41,7 @@ class QFile;
 class WavePlot;
 class SignalProcessor;
 class Rhd2000EvalBoard;
+class StimParamDialog;
 class SignalSources;
 class SignalGroup;
 class SignalChannel;
@@ -141,6 +142,8 @@ private slots:
     void setDacThreshold8(int threshold);
 
 private:
+    StimParamDialog *stimParamDialog;
+
     void createActions();
     void createMenus();
     void createStatusBar();
