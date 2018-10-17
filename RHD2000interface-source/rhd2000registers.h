@@ -3,7 +3,7 @@
 //
 // Intan Technoloies RHD2000 Rhythm Interface API
 // Rhd2000Registers Class Header File
-// Version 1.5.1 (28 March 2017)
+// Version 1.5.2 (24 July 2017)
 //
 // Copyright (c) 2013-2017 Intan Technologies LLC
 //
