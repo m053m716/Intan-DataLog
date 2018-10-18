@@ -74,7 +74,7 @@ public:
 
     int getEvalBoardMode();
     bool isRecording();
-    void setManualStimTrigger(int trigger, bool triggerOn);
+    void setTTLOut(int trigger, bool triggerOn);
 
 protected:
     void closeEvent(QCloseEvent *event);
