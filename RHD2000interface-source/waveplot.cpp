@@ -486,11 +486,104 @@ void WavePlot::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Space:
         toggleSelectedChannelEnable();
         break;
+    case Qt::Key_1:
+        if (!(event->isAutoRepeat())) {
+            mainWindow->setManualStimTrigger(8, true);
+        }
+        break;
+    case Qt::Key_2:
+        if (!(event->isAutoRepeat())) {
+            mainWindow->setManualStimTrigger(9, true);
+        }
+        break;
+    case Qt::Key_3:
+        if (!(event->isAutoRepeat())) {
+            mainWindow->setManualStimTrigger(10, true);
+        }
+        break;
+    case Qt::Key_4:
+        if (!(event->isAutoRepeat())) {
+            mainWindow->setManualStimTrigger(11, true);
+        }
+        break;
+    case Qt::Key_5:
+        if (!(event->isAutoRepeat())) {
+            mainWindow->setManualStimTrigger(12, true);
+        }
+        break;
+    case Qt::Key_6:
+        if (!(event->isAutoRepeat())) {
+            mainWindow->setManualStimTrigger(13, true);
+        }
+        break;
+    case Qt::Key_7:
+        if (!(event->isAutoRepeat())) {
+            mainWindow->setManualStimTrigger(14, true);
+        }
+        break;
+    case Qt::Key_8:
+        if (!(event->isAutoRepeat())) {
+            mainWindow->setManualStimTrigger(15, true);
+        }
+        break;
     default:
-        QWidget::keyPressEvent(event);
+        if (event->matches(QKeySequence::Copy)) {
+            mainWindow->copyStimParameters();
+        } else if (event->matches(QKeySequence::Paste)) {
+            mainWindow->pasteStimParameters();
+        } else {
+            QWidget::keyPressEvent(event);
+        }
     }
 }
 
+void WavePlot::keyReleaseEvent(QKeyEvent *event)
+{
+    switch (event->key()) {
+    case Qt::Key_1:
+        if (!(event->isAutoRepeat())) {
+            mainWindow->setManualStimTrigger(8, false);
+        }
+        break;
+    case Qt::Key_2:
+        if (!(event->isAutoRepeat())) {
+            mainWindow->setManualStimTrigger(9, false);
+        }
+        break;
+    case Qt::Key_3:
+        if (!(event->isAutoRepeat())) {
+            mainWindow->setManualStimTrigger(10, false);
+        }
+        break;
+    case Qt::Key_4:
+        if (!(event->isAutoRepeat())) {
+            mainWindow->setManualStimTrigger(11, false);
+        }
+        break;
+    case Qt::Key_5:
+        if (!(event->isAutoRepeat())) {
+            mainWindow->setManualStimTrigger(12, false);
+        }
+        break;
+    case Qt::Key_6:
+        if (!(event->isAutoRepeat())) {
+            mainWindow->setManualStimTrigger(13, false);
+        }
+        break;
+    case Qt::Key_7:
+        if (!(event->isAutoRepeat())) {
+            mainWindow->setManualStimTrigger(14, false);
+        }
+        break;
+    case Qt::Key_8:
+        if (!(event->isAutoRepeat())) {
+            mainWindow->setManualStimTrigger(15, false);
+        }
+        break;
+    default:
+        QWidget::keyReleaseEvent(event);
+    }
+}
 void WavePlot::closeEvent(QCloseEvent *event)
 {
     // Perform any clean-up here before application closes.

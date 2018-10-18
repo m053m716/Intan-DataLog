@@ -4225,3 +4225,11 @@ bool MainWindow::isRecording()
 {
     return recording;
 }
+
+void MainWindow::setTTLOut(int trigger, bool triggerOn)
+{
+    ttlOut[trigger] = triggerOn;
+    if (!synthMode) {
+        evalBoard->setTtlOut(ttlOut);
+    }
+}

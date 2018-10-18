@@ -257,7 +257,8 @@ void Rhd2000EvalBoard::initialize()
     setDacGain(0);
     setAudioNoiseSuppress(0);
 
-    setTtlMode(1);          // Digital outputs 0-7 are DAC comparators; 8-15 under manual control
+    // setTtlMode(1);          // Digital outputs 0-7 are DAC comparators; 8-15 under manual control
+    setTtlMode(0); // MM - 2018-10-18
 
     setDacThreshold(0, 32768, true);
     setDacThreshold(1, 32768, true);

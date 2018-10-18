@@ -41,7 +41,6 @@ class QFile;
 class WavePlot;
 class SignalProcessor;
 class Rhd2000EvalBoard;
-class StimParamDialog;
 class SignalSources;
 class SignalGroup;
 class SignalChannel;
@@ -75,6 +74,7 @@ public:
 
     int getEvalBoardMode();
     bool isRecording();
+    void setManualStimTrigger(int trigger, bool triggerOn);
 
 protected:
     void closeEvent(QCloseEvent *event);
@@ -142,8 +142,6 @@ private slots:
     void setDacThreshold8(int threshold);
 
 private:
-    StimParamDialog *stimParamDialog;
-
     void createActions();
     void createMenus();
     void createStatusBar();
