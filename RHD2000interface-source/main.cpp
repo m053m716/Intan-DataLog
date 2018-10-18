@@ -25,11 +25,24 @@
 
 #include "mainwindow.h"
 #include "guicon.h"
+//#include "Windows.h"
+//#include "winuser.h"
+
+//#pragma comment(lib,"user32.lib")
+
+//#define MOD_NOREPEAT 0x4000
+//#define MOD_CTRL 0x0002
+//#define MOD_ALT 0x0001
+//#define MOD_SHIFT 0x0004
 
 // Starts application main window.
 
 int main(int argc, char *argv[]){
     //RedirectIOToConsole();
+
+//    for (int kID=49; kID<57; kID++) {
+//        RegisterHotKey(NULL,kID,MOD_NOREPEAT,kID);
+//    }
 
     QApplication app(argc, argv);
 
@@ -39,6 +52,29 @@ int main(int argc, char *argv[]){
 
     MainWindow mainWin;
     mainWin.show();
+
+//    app.processEvents();
+
+//    MSG msg;
+//    while(GetMessage(&msg, NULL, 0, 0))
+//    {
+//        if(mainWin.isClosing) {
+//            return msg.wParam;
+//        }
+//        TranslateMessage(&msg);
+//        DispatchMessage(&msg);
+//        if(msg.message == WM_HOTKEY)
+//        {
+//            for (int kID=49; kID<57; kID++) {
+//                if (msg.wParam==kID) {
+//                    mainWin.keyEvent(kID,true);
+//                } else {
+//                    mainWin.keyEvent(kID,false);
+//                }
+//            }
+//        }
+//    }
+
 
     return app.exec();
 }

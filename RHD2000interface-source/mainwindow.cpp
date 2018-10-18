@@ -62,11 +62,18 @@
 #include "rhd2000datablock.h"
 #include "okFrontPanelDLL.h"
 
+#include "Windows.h"
+#include "winuser.h"
+#pragma comment(lib,"user32.lib")
+
 // Main Window of RHD2000 USB interface application.
 
 // Constructor.
 MainWindow::MainWindow()
 {
+    // For keyboard listener
+    isClosing = false;
+
     // Default amplifier bandwidth settings
     desiredLowerBandwidth = 0.1;
     desiredUpperBandwidth = 7500.0;
@@ -100,7 +107,6 @@ MainWindow::MainWindow()
 
     // Set dialog pointers to null.
     spikeScopeDialog = nullptr;
-    stimParamDialog = nullptr;
     keyboardShortcutDialog = nullptr;
     helpDialogChipFilters = nullptr;
     helpDialogComparators = nullptr;
@@ -1194,11 +1200,12 @@ void MainWindow::fastSettleHelp()
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
-{
+{    
     // Perform any clean-up here before application closes.
     if (running) {
         stopInterfaceBoard(); // stop SPI communication before we exit
     }
+    isClosing = true; // notify keyboard listener that we're closing
     event->accept();
 }
 
@@ -2723,6 +2730,15 @@ void MainWindow::runInterfaceBoard()
             // Apply notch filter to amplifier data.
             signalProcessor->filterData(numUsbBlocksToRead, channelVisible);
 
+            // check for keyboard strokes?
+
+//            GetKeyboardState(KeyStates);
+            for (int kID = 0x31; kID < 0x3A; kID++)
+            {
+//                keyEvent(kID,(KeyStates[kID] & 0xF0));
+                keyEvent(kID,GetAsyncKeyState(kID));
+            }
+
             // Trigger WavePlot widget to display new waveform data.
             wavePlot->passFilteredData();
 
@@ -4231,5 +4247,76 @@ void MainWindow::setTTLOut(int trigger, bool triggerOn)
     ttlOut[trigger] = triggerOn;
     if (!synthMode) {
         evalBoard->setTtlOut(ttlOut);
+    }
+}
+
+//void MainWindow::keyPressEvent(int kID)
+//{
+//    switch (kID) {
+//    case Qt::Key_1:
+//        setTTLOut(8, true);
+//        break;
+//    case Qt::Key_2:
+//        setTTLOut(9, true);
+//        break;
+//    case Qt::Key_3:
+//        setTTLOut(10, true);
+//        break;
+//    case Qt::Key_4:
+//        setTTLOut(11, true);
+//        break;
+//    case Qt::Key_5:
+//        setTTLOut(12, true);
+//        break;
+//    case Qt::Key_6:
+//        setTTLOut(13, true);
+//        break;
+//    case Qt::Key_7:
+//        setTTLOut(14, true);
+//        break;
+//    case Qt::Key_8:
+//        setTTLOut(15, true);
+//        break;
+//    }
+//}
+
+
+//void MainWindow::keyReleaseEvent(int kID)
+//{
+//    switch (kID) {
+//    case Qt::Key_1:
+//        setTTLOut(8, false);
+//        break;
+//    case Qt::Key_2:
+//        setTTLOut(9, false);
+//        break;
+//    case Qt::Key_3:
+//        setTTLOut(10, false);
+//        break;
+//    case Qt::Key_4:
+//        setTTLOut(11, false);
+//        break;
+//    case Qt::Key_5:
+//        setTTLOut(12, false);
+//        break;
+//    case Qt::Key_6:
+//        setTTLOut(13, false);
+//        break;
+//    case Qt::Key_7:
+//        setTTLOut(14, false);
+//        break;
+//    case Qt::Key_8:
+//        setTTLOut(15, false);
+//        break;
+//    }
+//}
+
+void MainWindow::keyEvent(int kID, bool keyPressed)
+{
+    if (kID < 49 || kID > 57) {
+        cerr << "Error in MainWindow::keyEvent: value out of range." << endl;
+        return;
+    } else {
+        setTTLOut(kID - 41, keyPressed);
     }
 }

@@ -37,9 +37,7 @@ HEADERS       = \
     helpdialogchipfilters.h \
     auxdigoutconfigdialog.h \
     cabledelaydialog.h \
-    helpdialogfastsettle.h \
-    stimparamdialog.h \
-    stimparameters.h
+    helpdialogfastsettle.h
 
 SOURCES       = main.cpp \
     okFrontPanelDLL.cpp \
@@ -68,9 +66,7 @@ SOURCES       = main.cpp \
     helpdialogchipfilters.cpp \
     auxdigoutconfigdialog.cpp \
     cabledelaydialog.cpp \
-    helpdialogfastsettle.cpp \
-    stimparamdialog.cpp \
-    stimparameters.cpp
+    helpdialogfastsettle.cpp
     
 RESOURCES     = RHD2000interface.qrc
 

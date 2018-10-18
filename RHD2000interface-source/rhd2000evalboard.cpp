@@ -919,6 +919,7 @@ void Rhd2000EvalBoard::setTtlOut(int ttlOutArray[])
 {
     int i, ttlOut;
 
+    // I assume it's done this way to account for Endian-ness differences between OS? -MM
     ttlOut = 0;
     for (i = 0; i < 16; ++i) {
         if (ttlOutArray[i] > 0)

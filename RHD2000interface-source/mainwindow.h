@@ -74,10 +74,14 @@ public:
 
     int getEvalBoardMode();
     bool isRecording();
+    bool isClosing;
     void setTTLOut(int trigger, bool triggerOn);
 
+    void keyEvent(int kID, bool keyPressed);
 protected:
     void closeEvent(QCloseEvent *event);
+//    void keyPressEvent(int kID);
+//    void keyReleaseEvent(int kID);
 
 private slots:
     void about();
@@ -162,7 +166,6 @@ private:
                                       double frequency, double parasiticCapacitance);
     void empiricalResistanceCorrection(double &impedanceMagnitude, double &impedancePhase,
                                        double boardSampleRate);
-
     void setStatusBarReady();
     void setStatusBarRunning();
     void setStatusBarRecording(double bytesPerMinute);
@@ -364,6 +367,8 @@ private:
     QLabel *actualImpedanceFreqLabel;
     QLabel *dacGainLabel;
     QLabel *dacNoiseSuppressLabel;
+
+//    unsigned char KeyStates[256];
 };
 
 #endif // MAINWINDOW_H
