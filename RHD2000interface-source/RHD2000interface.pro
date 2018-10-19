@@ -37,7 +37,8 @@ HEADERS       = \
     helpdialogchipfilters.h \
     auxdigoutconfigdialog.h \
     cabledelaydialog.h \
-    helpdialogfastsettle.h
+    helpdialogfastsettle.h \
+    gamepadmonitor.h
 
 SOURCES       = main.cpp \
     okFrontPanelDLL.cpp \
@@ -66,7 +67,8 @@ SOURCES       = main.cpp \
     helpdialogchipfilters.cpp \
     auxdigoutconfigdialog.cpp \
     cabledelaydialog.cpp \
-    helpdialogfastsettle.cpp
+    helpdialogfastsettle.cpp \
+    gamepadmonitor.cpp
     
 RESOURCES     = RHD2000interface.qrc
 
