@@ -4,6 +4,8 @@ QT            += widgets multimedia
 
 CONFIG        += static
 
+#msvc: LIBS += -luser32
+
 macx:{
 QMAKE_RPATHDIR += /users/intan/qt/5.7/clang_64/lib
 QMAKE_RPATHDIR += /users/intan/downloads/
@@ -38,7 +40,7 @@ HEADERS       = \
     auxdigoutconfigdialog.h \
     cabledelaydialog.h \
     helpdialogfastsettle.h \
-    gamepadmonitor.h
+    cxboxcontroller.h
 
 SOURCES       = main.cpp \
     okFrontPanelDLL.cpp \
@@ -68,7 +70,7 @@ SOURCES       = main.cpp \
     auxdigoutconfigdialog.cpp \
     cabledelaydialog.cpp \
     helpdialogfastsettle.cpp \
-    gamepadmonitor.cpp
+    cxboxcontroller.cpp
     
 RESOURCES     = RHD2000interface.qrc
 

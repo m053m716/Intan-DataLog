@@ -26,6 +26,7 @@
 #include <queue>
 #include "rhd2000datablock.h"
 #include "globalconstants.h"
+#include "cxboxcontroller.h"
 
 class QAction;
 class QPushButton;
@@ -39,6 +40,7 @@ class QLineEdit;
 class QLabel;
 class QFile;
 class WavePlot;
+class CXBOXController;
 class SignalProcessor;
 class Rhd2000EvalBoard;
 class SignalSources;
@@ -74,10 +76,12 @@ public:
 
     int getEvalBoardMode();
     bool isRecording();
-    bool isClosing;
+//    bool isClosing;
     void setTTLOut(int trigger, bool triggerOn);
 
+//public slots:
     void keyEvent(int kID, bool keyPressed);
+
 protected:
     void closeEvent(QCloseEvent *event);
 //    void keyPressEvent(int kID);
@@ -254,6 +258,7 @@ private:
     queue<Rhd2000DataBlock> filteredDataQueue;
 
     WavePlot *wavePlot;
+    CXBOXController *gamePad;
     SignalProcessor *signalProcessor;
 
     SpikeScopeDialog *spikeScopeDialog;

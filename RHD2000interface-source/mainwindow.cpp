@@ -62,8 +62,13 @@
 #include "rhd2000datablock.h"
 #include "okFrontPanelDLL.h"
 
+#include "cxboxcontroller.h"
+
 #include "Windows.h"
 #include "winuser.h"
+//#include "xinput.h"
+//#pragma comment(lib,"Xinput9_1_0.lib")
+//#pragma comment(lib,"Xinput.lib")
 #pragma comment(lib,"user32.lib")
 
 // Main Window of RHD2000 USB interface application.
@@ -71,8 +76,8 @@
 // Constructor.
 MainWindow::MainWindow()
 {
-    // For keyboard listener
-    isClosing = false;
+//    // For keyboard listener
+//    isClosing = false;
 
     // Default amplifier bandwidth settings
     desiredLowerBandwidth = 0.1;
@@ -150,6 +155,8 @@ MainWindow::MainWindow()
     fastSettleEnabled = false;
 
     wavePlot = new WavePlot(signalProcessor, signalSources, this, this);
+    gamePad = new CXBOXController(1);
+//    connect(gamePad, SIGNAL(buttonChanged(int,bool)), this, SLOT(keyEvent(int,bool)));
 
     connect(wavePlot, SIGNAL(selectedChannelChanged(SignalChannel*)),
             this, SLOT(newSelectedChannel(SignalChannel*)));
@@ -1205,7 +1212,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
     if (running) {
         stopInterfaceBoard(); // stop SPI communication before we exit
     }
-    isClosing = true; // notify keyboard listener that we're closing
+//    isClosing = true; // notify keyboard listener that we're closing
     event->accept();
 }
 
@@ -2730,13 +2737,76 @@ void MainWindow::runInterfaceBoard()
             // Apply notch filter to amplifier data.
             signalProcessor->filterData(numUsbBlocksToRead, channelVisible);
 
-            // check for keyboard strokes?
+//            // GetKeyboardState(KeyStates);
+//            for (int kID = 0x31; kID < 0x3A; kID++)
+//            {
+//                keyEvent(kID,GetAsyncKeyState(kID));
+//            }
 
-//            GetKeyboardState(KeyStates);
-            for (int kID = 0x31; kID < 0x3A; kID++)
+            // Get XBOX Controller states
+            if (gamePad->IsConnected())
             {
-//                keyEvent(kID,(KeyStates[kID] & 0xF0));
-                keyEvent(kID,GetAsyncKeyState(kID));
+                // DEBUG
+
+                if(gamePad->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_START) {
+                    gamePad->Vibrate(65535,65535);
+                }
+
+                if(gamePad->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_BACK) {
+                    gamePad->Vibrate(0,0);
+                }
+
+                // RIGHT SIDE
+
+                if(gamePad->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_A){
+                    keyEvent(49,true);
+                } else {
+                    keyEvent(49,false);
+                }
+
+                if(gamePad->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_B){
+                    keyEvent(50,true);
+                } else {
+                    keyEvent(50,false);
+                }
+                if(gamePad->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_X){
+                    keyEvent(51,true);
+                } else {
+                    keyEvent(51,false);
+                }
+
+                if(gamePad->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_Y){
+                    keyEvent(52,true);
+                } else {
+                    keyEvent(52,false);
+                }
+
+                // LEFT SIDE
+
+                if(gamePad->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_UP){
+                    keyEvent(53,true);
+                } else {
+                    keyEvent(53,false);
+                }
+
+                if(gamePad->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN){
+                    keyEvent(54,true);
+                } else {
+                    keyEvent(54,false);
+                }
+
+                if(gamePad->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_LEFT){
+                    keyEvent(55,true);
+                } else {
+                    keyEvent(55,false);
+                }
+
+                if(gamePad->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_RIGHT){
+                    keyEvent(56,true);
+                } else {
+                    keyEvent(56,false);
+                }
+
             }
 
             // Trigger WavePlot widget to display new waveform data.
@@ -4249,67 +4319,6 @@ void MainWindow::setTTLOut(int trigger, bool triggerOn)
         evalBoard->setTtlOut(ttlOut);
     }
 }
-
-//void MainWindow::keyPressEvent(int kID)
-//{
-//    switch (kID) {
-//    case Qt::Key_1:
-//        setTTLOut(8, true);
-//        break;
-//    case Qt::Key_2:
-//        setTTLOut(9, true);
-//        break;
-//    case Qt::Key_3:
-//        setTTLOut(10, true);
-//        break;
-//    case Qt::Key_4:
-//        setTTLOut(11, true);
-//        break;
-//    case Qt::Key_5:
-//        setTTLOut(12, true);
-//        break;
-//    case Qt::Key_6:
-//        setTTLOut(13, true);
-//        break;
-//    case Qt::Key_7:
-//        setTTLOut(14, true);
-//        break;
-//    case Qt::Key_8:
-//        setTTLOut(15, true);
-//        break;
-//    }
-//}
-
-
-//void MainWindow::keyReleaseEvent(int kID)
-//{
-//    switch (kID) {
-//    case Qt::Key_1:
-//        setTTLOut(8, false);
-//        break;
-//    case Qt::Key_2:
-//        setTTLOut(9, false);
-//        break;
-//    case Qt::Key_3:
-//        setTTLOut(10, false);
-//        break;
-//    case Qt::Key_4:
-//        setTTLOut(11, false);
-//        break;
-//    case Qt::Key_5:
-//        setTTLOut(12, false);
-//        break;
-//    case Qt::Key_6:
-//        setTTLOut(13, false);
-//        break;
-//    case Qt::Key_7:
-//        setTTLOut(14, false);
-//        break;
-//    case Qt::Key_8:
-//        setTTLOut(15, false);
-//        break;
-//    }
-//}
 
 void MainWindow::keyEvent(int kID, bool keyPressed)
 {

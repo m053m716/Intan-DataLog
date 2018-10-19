@@ -43,20 +43,39 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QTimer>
+#include "mainwindow.h"
 
 QT_BEGIN_NAMESPACE
 class QGamepad;
+class MainWindow;
 QT_END_NAMESPACE
 
 class GamepadMonitor : public QObject
 {
     Q_OBJECT
 public:
-    explicit GamepadMonitor(QObject *parent = 0);
+    explicit GamepadMonitor(QObject *parent = 0, MainWindow *inMainWindow = nullptr);
     ~GamepadMonitor();
+
+signals:
+    void buttonChanged(int kID, bool pressed);
 
 private:
     QGamepad *m_gamepad;
+    MainWindow *mainWindow;
+
+//    void connectButtons();
+//    void disconnectButtons();
+    void button1Changed(bool pressed);
+    void button2Changed(bool pressed);
+    void button3Changed(bool pressed);
+    void button4Changed(bool pressed);
+    void button5Changed(bool pressed);
+    void button6Changed(bool pressed);
+    void button7Changed(bool pressed);
+    void button8Changed(bool pressed);
+
+//    void connectDisconnect(bool connected);
 };
 
 #endif // GAMEPADMONITOR_H
